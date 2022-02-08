@@ -1,0 +1,316 @@
+{
+	"info": {
+		"_postman_id": "52aea171-27b8-40ff-85f8-c8f5334f7f98",
+		"name": "UMRAH-TEST-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"data = JSON.parse(responseBody)\r",
+									"postman.setEnvironmentVariable(\"token\", data.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"joko\",\r\n    \"password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"data = JSON.parse(responseBody)\r",
+									"postman.setEnvironmentVariable(\"token\", data.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"joko\",\r\n    \"password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/token",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CUSTOMER",
+			"item": [
+				{
+					"name": "list-customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/customer/list/100/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"customer",
+								"list",
+								"100",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ITEM",
+			"item": [
+				{
+					"name": "list-item",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"kode_item\":\"101\",\r\n    \"nama_item\":\"Sabun\",\r\n    \"unit\":\"pcs\",\r\n    \"stok\":10,\r\n    \"harga_satuan\":1200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/item/list/10/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"item",
+								"list",
+								"10",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TRANSACTION",
+			"item": [
+				{
+					"name": "new-transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_customer\":5,\r\n    \"total_bayar\":30000,\r\n    \"list_item\":[\r\n        {\r\n            \"kode_item\":\"10001\",\r\n            \"qty\":10,\r\n            \"harga_satuan\":10000\r\n        },\r\n        {\r\n            \"kode_item\":\"10002\",\r\n            \"qty\":2,\r\n            \"harga_satuan\":8000\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/transaction/new_transaction",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"new_transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/transaction/list/10/1?keywords=sardi",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"list",
+								"10",
+								"1"
+							],
+							"query": [
+								{
+									"key": "keywords",
+									"value": "sardi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail-transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/transaction/detail/4811091441",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"detail",
+								"4811091441"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/transaction/delete/5767622994",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"delete",
+								"5767622994"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
